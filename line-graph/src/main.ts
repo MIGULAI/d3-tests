@@ -57,7 +57,7 @@ gLobalGroup.append("path")
 
 // X label
 // axis labels
-const xLabel = gLobalGroup.append("text")
+gLobalGroup.append("text")
   .attr("class", "x axisLabel")
   .attr("y", height + 50)
   .attr("x", width / 2)
@@ -222,19 +222,19 @@ function update() {
     
   const line = d3.line()
     .x((d) => {
-      return x(d.date)
+      return x((d as any).date)
     })
     .y(d => {
-      return y(d[yValue])
+      return y(d[yValue as any])
     })
 
   // Update our line path
   gLobalGroup.select(".line")
     .transition(transition)
-    .attr("d", line(dataTimeFiltered))
+    .attr("d", line(dataTimeFiltered as any))
 
   // Update y-axis label
-  const newText = (yValue === "price_usd") ? "Price ($)"
+  const newText = (yValue as string === "price_usd") ? "Price ($)"
     : (yValue === "market_cap") ? "Market Capitalization ($)"
       : "24 Hour Trading Volume ($)";
   yLable.text(newText)
